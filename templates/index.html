@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tutor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="main-container">
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-robot"></i> AI Learning Assistant</h1>
+                <button class="sidebar-toggle" id="sidebarToggle" title="Expand/Collapse Sidebar">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+            <div class="roadmap-section">
+                <div class="roadmap-section-header">
+                    <h2><i class="fas fa-map-signs"></i> Learning Roadmap</h2>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="topicInput" placeholder="Enter a topic to learn">
+                    <button onclick="generateRoadmap()"><i class="fas fa-compass"></i> Generate</button>
+                </div>
+                <div id="roadmapResult" class="tree-container"></div>
+            </div>
+        </nav>
+
+        <main class="content">
+            <div class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-book-open"></i> Topic Explanation</h2>
+                    <div class="input-group">
+                        <input type="text" id="selectedTopic" placeholder="Selected topic">
+                        <button onclick="getExplanation()"><i class="fas fa-lightbulb"></i> Get Explanation</button>
+                    </div>
+                </div>
+                <div id="explanationResult" class="explanation-container"></div>
+            </div>
+
+            <div class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-tasks"></i> Practice Quiz</h2>
+                    <button onclick="generateQuiz()"><i class="fas fa-question-circle"></i> Generate Quiz</button>
+                </div>
+                <div id="quizResult" class="quiz-container"></div>
+                
+                <div id="evaluationResult" class="evaluation-container"></div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-line"></i> Learning Progress</h2>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-book"></i></div>
+                            <div class="stat-info">
+                                <h3>Topics Explored</h3>
+                                <p id="topicsExplored">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                            <div class="stat-info">
+                                <h3>Quizzes Completed</h3>
+                                <p id="quizzesCompleted">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-trophy"></i></div>
+                            <div class="stat-info">
+                                <h3>Average Score</h3>
+                                <p id="averageScore">0%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="recent-activity">
+                        <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                        <ul id="activityList" class="activity-list">
+                            <li class="activity-item">
+                                <span class="activity-time">Just now</span>
+                                <span class="activity-text">Welcome to AI Learning Assistant!</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="loading">
+                <div></div><div></div><div></div><div></div>
+            </div>
+            <p>Processing your request...</p>
+        </div>
+    </div>
+
+    <!-- Custom Alert Popup -->
+    <div id="customAlertOverlay" class="custom-alert-overlay">
+        <div class="custom-alert">
+            <div class="custom-alert-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3 class="custom-alert-title">Attention Required</h3>
+            <p class="custom-alert-message" id="customAlertMessage">Please answer all questions before submitting!</p>
+            <div class="custom-alert-buttons">
+                <button class="custom-alert-button" id="customAlertButton">
+                    <i class="fas fa-check"></i> Got it
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
